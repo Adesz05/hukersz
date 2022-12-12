@@ -1,4 +1,4 @@
-let app = new angular.module('pizzeriaApp', ['ngRoute']);
+let app = new angular.module('hukerszApp', ['ngRoute']);
 
 app.run(function($rootScope, $locale, DB) {
 
@@ -7,19 +7,10 @@ app.run(function($rootScope, $locale, DB) {
 
     $rootScope.settings = {};
     $rootScope.loggedUser = {};
-    $rootScope.settings.appTitle = 'MammaMia Pizzéria';
-    $rootScope.settings.company = 'Bajai SZC Türr István Technikum';
+    $rootScope.settings.appTitle = 'Hukersz';
+    $rootScope.settings.company = 'Csapatnev';
     $rootScope.settings.author = '2/14.szft szoftverfejlesztő';
-    $rootScope.penznem = 'Ft';
-    $rootScope.decimals = 0;
-    $rootScope.exch = 1;
-    $rootScope.loggedUser = angular.fromJson(sessionStorage.getItem('pizzeriaApp'));
-    if ($rootScope.loggedUser) {
-
-        DB.select('carts', 'userID', $rootScope.loggedUser.ID).then(function(res) {
-            $rootScope.itemsInCart = res.data.length;
-        });
-    }
+    $rootScope.loggedUser = angular.fromJson(sessionStorage.getItem('hukerszApp'));
 
 });
 
