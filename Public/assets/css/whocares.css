@@ -1,0 +1,39 @@
+body {
+    background-color: silver;
+}
+
+header {
+    background-color: black;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    letter-spacing: 3px;
+    padding: 10px;
+    font-size: 80%;
+}
+
+.d-block {
+    height: 296px;
+}
+
+em {
+    color: red;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 200px !important;
+}
+
+.card {
+    width: 18rem;
+    margin: 10px;
+    padding: 0;
+}
+
+.valaszto {
+    width: 65px !important;
+}
