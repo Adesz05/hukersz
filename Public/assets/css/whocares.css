@@ -1,39 +1,28 @@
 body {
-    background-color: silver;
-}
-
-header {
-    background-color: black;
-}
-
-footer {
-    background-color: black;
+    background-color: #a2aebb;
     color: white;
-    text-align: center;
-    letter-spacing: 3px;
-    padding: 10px;
-    font-size: 80%;
+}
+header{
+    background-color: #23b5d3;
+}
+.fejlecdiv{
+    display: flex;
 }
 
-.d-block {
-    height: 296px;
-}
 
 em {
     color: red;
     font-weight: bold;
 }
-
-textarea {
-    min-height: 200px !important;
+aside{
+    float: right;
+    width: 30%;
 }
 
-.card {
-    width: 18rem;
-    margin: 10px;
-    padding: 0;
-}
-
-.valaszto {
-    width: 65px !important;
+h2{
+    text-align: center;
+    font-style: italic;
+    letter-spacing: 6px;
+    font-weight: bold !important;
+    margin-top: 2%;
 }
