@@ -5,8 +5,8 @@ body {
 header{
     background-color: #23b5d3;
 }
-.fejlecdiv{
-    display: flex;
+main{
+    margin-left: 10vw;
 }
 
 
