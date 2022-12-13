@@ -6,6 +6,7 @@ header{
     background-color: #23b5d3;
 }
 main{
+    margin-top: 1vh;
     margin-left: 10vw;
 }
 .embik{
@@ -28,4 +29,9 @@ h2{
     letter-spacing: 6px;
     font-weight: bold !important;
     margin-top: 2%;
+}
+
+.card{
+    border: 2px solid #23b5d3;
+    box-shadow: 5px 5px 10px #75abbc;
 }
