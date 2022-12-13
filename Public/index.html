@@ -12,10 +12,10 @@
 <body>
     <header>
         <div class="d-flex align-items-center" >
-            <div class="col-6"><img class="m-3" src="../img/WhoCares_logo.png" alt=""></div>
+            <div class="col-6" ><img class="m-3 w-50" src="../img/WhoCares_logo.png" alt=""></div>
             <div class="col-4"><h2>{{$nev}}</h2></div>
-            <div class="col-2 text-end"><button class="btn btn-danger m-3">
-                <i class="bi bi-box-arrow-right"></i></button></div>
+            <div class="col-2 text-end">
+                <button class="btn btn-danger m-3"><i class="bi bi-box-arrow-right"></i></button></div>
         </div>
     </header>
     <main class="d-flex">
@@ -26,18 +26,19 @@
                   <h5 class="card-title">{{post.name}}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">{{post.date}}</h6>
                   <p class="card-text"> {{post.postmessage}}</p>
-                  <button class="btn btn-primary"> Reakció </button>
-                  <button class="btn btn-primary"> Komment </button>
-                  <div class="accordion accordion-flush" id="accordionFlushExample">
+                  <button class="btn btn-primary" ng-repeat="emoticon in emoticons"> {{emoticon.tag}}</button>
+                  
+                  <button class="btn btn-primary" ng-click="Kommenteles()"> Komment </button>
+                  <div class="accordion accordion-flush" id="accordionFlushExample" ng-if="post.comments.length > 0">
                     <div class="accordion-item ">
                       <h2 class="accordion-header" id="flush-headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                          Accordion Item #1
+                        <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          Hozászólások ({{post.comments.length}})
                         </button>
                       </h2>
-                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" ng-repeat="comment in comments">
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" ng-repeat="comment in post.comments">
                           <div>
-                              {{comment.filename}}
+                            <img src="{{comment.filename}}" alt="Comment Profilkép">
                           </div>
                         <div>
                             {{comment.message}}
@@ -48,10 +49,16 @@
                 </div>
               </div>
         </div>
-        <div class="col-4">
+        <div class="col-4 embik">
             <!-- Felhasznalok helye-->
-            
-            amott
+           <ul class="list-group list-group-flush" >
+                <li class="list-group-item" ng-repeat="user in users">
+                    <img src="../Public/uploads/nopic.png" ng-if="user.filename == '' ">
+                    <img src="../Public/uploads/{{ user.filename}}" ng-if="user.filename != ''">
+                    {{user.name}}
+                </li>
+                
+           </ul>
         </div>
     </main>
     <footer></footer>
@@ -72,6 +79,6 @@
     <script src="./assets/js/dbFactory.js"></script>
 
     <!-- controllers -->
-
+    
 </body>
 </html>
