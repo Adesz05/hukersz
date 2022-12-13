@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Dec 13. 10:08
+-- Létrehozás ideje: 2022. Dec 13. 13:23
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.8
 
@@ -23,6 +23,21 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `2123szft_socialmediaportal` DEFAULT CHARACTER SET utf8 COLLATE utf8_hungarian_ci;
 USE `2123szft_socialmediaportal`;
+
+-- --------------------------------------------------------
+
+--
+-- A nézet helyettes szerkezete `commentdetails`
+-- (Lásd alább az aktuális nézetet)
+--
+CREATE TABLE `commentdetails` (
+`ID` int(11)
+,`postID` int(11)
+,`name` varchar(100)
+,`filename` varchar(255)
+,`date` datetime
+,`comment` text
+);
 
 -- --------------------------------------------------------
 
@@ -54,27 +69,28 @@ INSERT INTO `comments` (`ID`, `userID`, `postID`, `date`, `comment`) VALUES
 CREATE TABLE `emotions` (
   `ID` int(11) NOT NULL,
   `emoticon` varchar(100) COLLATE utf8_hungarian_ci NOT NULL,
-  `name` varchar(30) COLLATE utf8_hungarian_ci NOT NULL
+  `name` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
+  `colors` varchar(40) COLLATE utf8_hungarian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `emotions`
 --
 
-INSERT INTO `emotions` (`ID`, `emoticon`, `name`) VALUES
-(1, '<i class=\"bi bi-hand-thumbs-up\"></i>', 'Kedvel'),
-(2, '<i class=\"bi bi-hand-thumbs-down\"></i>', 'Nem kedvel'),
-(3, '<i class=\"bi bi-heart\"></i>', 'Szeret'),
-(4, '<i class=\"bi bi-heartbreak\"></i>', 'Nem szeret'),
-(5, '<i class=\"bi bi-emoji-kiss\"></i>', 'Csókol'),
-(6, '<i class=\"bi bi-emoji-heart-eyes\"></i>', 'Örül'),
-(7, '<i class=\"bi bi-emoji-angry\"></i>', 'Mérges'),
-(8, '<i class=\"bi bi-emoji-frown\"></i>', 'Szomorú'),
-(9, '<i class=\"bi bi-emoji-laughing\"></i>', 'Nevet'),
-(10, '<i class=\"bi bi-emoji-smile\"></i>', 'Mosolyog'),
-(11, '<i class=\"bi bi-emoji-sunglasses\"></i>', 'Vagány'),
-(12, '<i class=\"bi bi-emoji-wink\"></i>', 'Kacsint'),
-(13, '<i class=\"bi bi-emoji-neutral\"></i>', 'Semleges');
+INSERT INTO `emotions` (`ID`, `emoticon`, `name`, `colors`) VALUES
+(1, '<i class=\"bi bi-hand-thumbs-up\"></i>', 'Kedvel', 'primary'),
+(2, '<i class=\"bi bi-hand-thumbs-down\"></i>', 'Nem kedvel', 'danger'),
+(3, '<i class=\"bi bi-heart\"></i>', 'Szeret', 'danger'),
+(4, '<i class=\"bi bi-heartbreak\"></i>', 'Nem szeret', 'danger'),
+(5, '<i class=\"bi bi-emoji-kiss\"></i>', 'Csókol', 'danger'),
+(6, '<i class=\"bi bi-emoji-heart-eyes\"></i>', 'Örül', 'warning'),
+(7, '<i class=\"bi bi-emoji-angry\"></i>', 'Mérges', 'danger'),
+(8, '<i class=\"bi bi-emoji-frown\"></i>', 'Szomorú', 'warning'),
+(9, '<i class=\"bi bi-emoji-laughing\"></i>', 'Nevet', 'warning'),
+(10, '<i class=\"bi bi-emoji-smile\"></i>', 'Mosolyog', 'warning'),
+(11, '<i class=\"bi bi-emoji-sunglasses\"></i>', 'Vagány', 'warning'),
+(12, '<i class=\"bi bi-emoji-wink\"></i>', 'Kacsint', 'warning'),
+(13, '<i class=\"bi bi-emoji-neutral\"></i>', 'Semleges', 'warning');
 
 -- --------------------------------------------------------
 
@@ -108,6 +124,30 @@ CREATE TABLE `pictures` (
   `userID` int(11) NOT NULL,
   `filename` varchar(255) COLLATE utf8_hungarian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `pictures`
+--
+
+INSERT INTO `pictures` (`ID`, `userID`, `filename`) VALUES
+(1, 3, ''),
+(2, 1, ''),
+(3, 2, '');
+
+-- --------------------------------------------------------
+
+--
+-- A nézet helyettes szerkezete `postdetails`
+-- (Lásd alább az aktuális nézetet)
+--
+CREATE TABLE `postdetails` (
+`ID` int(11)
+,`userID` int(11)
+,`name` varchar(100)
+,`filename` varchar(255)
+,`date` datetime
+,`postmessage` text
+);
 
 -- --------------------------------------------------------
 
@@ -147,8 +187,7 @@ CREATE TABLE `reactions` (
 --
 
 INSERT INTO `reactions` (`ID`, `userID`, `postID`, `emojiID`) VALUES
-(1, 1, 1, 6),
-(2, 1, 1, 6);
+(1, 1, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -177,6 +216,24 @@ INSERT INTO `users` (`ID`, `name`, `email`, `password`, `phone`, `address`, `fil
 (1, 'Első Amóga', 'amoga@amog.us', 'amoga', 'amogamogtelefon', 'amoga utca amoga', NULL, '2022-12-12 11:34:16', NULL, 1),
 (2, 'Masodik muskétás', 'musk@tesla.com', 'musketa', 'amogatelefon', 'amoga utca0', NULL, '2022-12-13 09:57:02', NULL, 1),
 (3, 'admin', 'admin@admin.com', 'a', 'adminfone', 'adminokhelye', NULL, '2022-12-13 09:57:45', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Nézet szerkezete `commentdetails`
+--
+DROP TABLE IF EXISTS `commentdetails`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commentdetails`  AS  select `comments`.`ID` AS `ID`,`posts`.`ID` AS `postID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`posts`.`date` AS `date`,`comments`.`comment` AS `comment` from (((`comments` join `posts` on(`posts`.`ID` = `comments`.`postID`)) join `users` on(`users`.`ID` = `comments`.`userID`)) join `pictures` on(`pictures`.`userID` = `users`.`ID`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Nézet szerkezete `postdetails`
+--
+DROP TABLE IF EXISTS `postdetails`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `postdetails`  AS  select `posts`.`ID` AS `ID`,`users`.`ID` AS `userID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`posts`.`date` AS `date`,`posts`.`postmessage` AS `postmessage` from ((`posts` join `users` on(`users`.`ID` = `posts`.`userID`)) join `pictures` on(`users`.`ID` = `pictures`.`userID`)) ;
 
 --
 -- Indexek a kiírt táblákhoz
@@ -259,7 +316,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT a táblához `pictures`
 --
 ALTER TABLE `pictures`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `posts`

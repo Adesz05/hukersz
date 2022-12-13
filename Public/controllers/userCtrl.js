@@ -23,11 +23,17 @@ app.controller('userCtrl', function($scope, DB, $rootScope, $location) {
                     }
 
                     DB.insert('users', data).then(function(res) {
-                        if (res.data.affectedRows != 0) {
-                            alert('A regisztráció sikeres! Beléphetsz az oldalra!');
-                            $scope.user = {};
-                        } else {
+                        if (res.data.affectedRows == 0) {
                             alert('Váratlan hiba történt az adatbázis művelet során!');
+                        } else {
+                            DB.insert('pictures', {userID: res.insertId, filename: ""}).then(function(res){
+                                if (res.data.affectedRows != 0) {
+                                    alert('A regisztráció sikeres! Beléphetsz az oldalra!');
+                                    $scope.user = {};
+                                } else {
+                                    alert('Váratlan hiba történt az adatbázis művelet során!');
+                                }
+                            })
                         }
                     });
                 }

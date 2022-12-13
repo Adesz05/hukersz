@@ -18,7 +18,7 @@ app.config(function($routeProvider) {
     $routeProvider
     // bárki számára
         .when('/', {
-            templateUrl: 'views/posts.html',
+            templateUrl: 'index.html',
             controller: 'postsCtrl'
         })
         .otherwise('/')
