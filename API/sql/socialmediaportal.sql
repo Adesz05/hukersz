@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Gép: localhost
--- Létrehozás ideje: 2022. Dec 12. 10:20
--- Kiszolgáló verziója: 10.4.22-MariaDB
--- PHP verzió: 8.1.2
+-- Gép: 127.0.0.1
+-- Létrehozás ideje: 2022. Dec 13. 10:08
+-- Kiszolgáló verziója: 10.4.6-MariaDB
+-- PHP verzió: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -36,6 +37,13 @@ CREATE TABLE `comments` (
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `comment` text COLLATE utf8_hungarian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `comments`
+--
+
+INSERT INTO `comments` (`ID`, `userID`, `postID`, `date`, `comment`) VALUES
+(1, 3, 1, '2022-12-13 09:59:57', 'Ésszel játszadozzál mert lehet hogy megesz egy impostor sussy');
 
 -- --------------------------------------------------------
 
@@ -82,6 +90,13 @@ CREATE TABLE `messages` (
   `message` text COLLATE utf8_hungarian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
+--
+-- A tábla adatainak kiíratása `messages`
+--
+
+INSERT INTO `messages` (`ID`, `fromID`, `toID`, `date`, `message`) VALUES
+(1, 1, 3, '2022-12-13 10:05:12', 'Tudjad kivel beszelsz\r\nSenkiben sem bizhatsz');
+
 -- --------------------------------------------------------
 
 --
@@ -107,6 +122,13 @@ CREATE TABLE `posts` (
   `postmessage` text COLLATE utf8_hungarian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
+--
+-- A tábla adatainak kiíratása `posts`
+--
+
+INSERT INTO `posts` (`ID`, `userID`, `date`, `postmessage`) VALUES
+(1, 1, '2022-12-13 09:58:18', 'Eléggé sus ez a veboldal');
+
 -- --------------------------------------------------------
 
 --
@@ -119,6 +141,14 @@ CREATE TABLE `reactions` (
   `postID` int(11) NOT NULL,
   `emojiID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `reactions`
+--
+
+INSERT INTO `reactions` (`ID`, `userID`, `postID`, `emojiID`) VALUES
+(1, 1, 1, 6),
+(2, 1, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -138,6 +168,15 @@ CREATE TABLE `users` (
   `last` datetime DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `users`
+--
+
+INSERT INTO `users` (`ID`, `name`, `email`, `password`, `phone`, `address`, `filename`, `reg`, `last`, `status`) VALUES
+(1, 'Első Amóga', 'amoga@amog.us', 'amoga', 'amogamogtelefon', 'amoga utca amoga', NULL, '2022-12-12 11:34:16', NULL, 1),
+(2, 'Masodik muskétás', 'musk@tesla.com', 'musketa', 'amogatelefon', 'amoga utca0', NULL, '2022-12-13 09:57:02', NULL, 1),
+(3, 'admin', 'admin@admin.com', 'a', 'adminfone', 'adminokhelye', NULL, '2022-12-13 09:57:45', NULL, 1);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -202,7 +241,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `emotions`
@@ -214,7 +253,7 @@ ALTER TABLE `emotions`
 -- AUTO_INCREMENT a táblához `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `pictures`
@@ -226,19 +265,19 @@ ALTER TABLE `pictures`
 -- AUTO_INCREMENT a táblához `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `reactions`
 --
 ALTER TABLE `reactions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Megkötések a kiírt táblákhoz
@@ -275,8 +314,8 @@ ALTER TABLE `posts`
 --
 ALTER TABLE `reactions`
   ADD CONSTRAINT `reactions_ibfk_1` FOREIGN KEY (`emojiID`) REFERENCES `emotions` (`ID`),
-  ADD CONSTRAINT `reactions_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `users` (`ID`),
-  ADD CONSTRAINT `reactions_ibfk_3` FOREIGN KEY (`postID`) REFERENCES `posts` (`ID`);
+  ADD CONSTRAINT `reactions_ibfk_3` FOREIGN KEY (`postID`) REFERENCES `posts` (`ID`),
+  ADD CONSTRAINT `reactions_ibfk_4` FOREIGN KEY (`userID`) REFERENCES `users` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
