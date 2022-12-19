@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Dec 13. 13:23
+-- Létrehozás ideje: 2022. Dec 19. 09:33
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.8
 
@@ -144,9 +144,9 @@ CREATE TABLE `postdetails` (
 `ID` int(11)
 ,`userID` int(11)
 ,`name` varchar(100)
-,`filename` varchar(255)
 ,`date` datetime
 ,`postmessage` text
+,`filename` varchar(255)
 );
 
 -- --------------------------------------------------------
@@ -233,7 +233,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `postdetails`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `postdetails`  AS  select `posts`.`ID` AS `ID`,`users`.`ID` AS `userID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`posts`.`date` AS `date`,`posts`.`postmessage` AS `postmessage` from ((`posts` join `users` on(`users`.`ID` = `posts`.`userID`)) join `pictures` on(`users`.`ID` = `pictures`.`userID`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `postdetails`  AS  select `posts`.`ID` AS `ID`,`users`.`ID` AS `userID`,`users`.`name` AS `name`,`posts`.`date` AS `date`,`posts`.`postmessage` AS `postmessage`,`pictures`.`filename` AS `filename` from ((`posts` join `users` on(`users`.`ID` = `posts`.`userID`)) join `pictures` on(`users`.`ID` = `pictures`.`userID`)) ;
 
 --
 -- Indexek a kiírt táblákhoz
