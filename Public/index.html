@@ -13,7 +13,7 @@
     <header>
         <div class="d-flex align-items-center" >
             <div class="col-6" ><img class="m-3 w-50" src="../img/WhoCares_logo.png" alt=""></div>
-            <div class="col-4"><h2>{{$nev}}</h2></div>
+            <div class="col-4"><h2>Janika</h2></div>
             <div class="col-2 text-end">
                 <button class="btn btn-danger m-3"><i class="bi bi-box-arrow-right"></i></button></div>
         </div>
@@ -27,7 +27,7 @@
                   <h5 class="card-title">{{post.name}}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">{{post.date}}</h6>
                   <p class="card-text"> {{post.postmessage}}</p>
-                  <button class="btn btn-primary" ng-repeat="emoticon in emoticons"> {{emoticon.tag}}</button>
+                  <button class="btn btn-{{emoticon.color}} rounded-circle mb-3" ng-repeat="emoticon in emoticons"><i class="{{emoticon.class}}"></i></button>
                   
                   <button class="btn btn-primary" ng-click="Kommenteles()"> Komment </button>
                   <div class="accordion accordion-flush" id="accordionFlushExample" ng-if="post.comments.length > 0">
@@ -41,8 +41,8 @@
                           <div>
                             <img src="{{comment.filename}}" alt="Comment Profilkép">
                           </div>
-                        <div>
-                            {{comment.message}}
+                        <div> 
+                            {{comment.comment}}
                         </div>
                       </div>
                     </div>
@@ -68,7 +68,6 @@
     
 
     
-    
     <script src="./assets/js/jquery.min.js"></script>
     <script src="./assets/js/bootstrap.min.js"></script>
     <script src="./assets/js/angular.min.js"></script>
@@ -78,6 +77,8 @@
     <script src="./assets/js/moment.min.js"></script>
     <script src="./assets/js/whocares.js"></script>
     <script src="./assets/js/dbFactory.js"></script>
+    <script src="./controllers/postsCtrl.js"></script>
+    <script src="./controllers/userCtrl.js"></script>
 
     <!-- controllers -->
     
