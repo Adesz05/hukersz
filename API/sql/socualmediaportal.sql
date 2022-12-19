@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Dec 19. 10:16
+-- Létrehozás ideje: 2022. Dec 19. 11:08
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.8
 
@@ -58,7 +58,8 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`ID`, `userID`, `postID`, `date`, `comment`) VALUES
-(1, 3, 1, '2022-12-13 09:59:57', 'Ésszel játszadozzál mert lehet hogy megesz egy impostor sussy');
+(1, 3, 1, '2022-12-13 09:59:57', 'Ésszel játszadozzál mert lehet hogy megesz egy impostor sussy'),
+(2, 1, 1, '2022-12-19 10:53:53', 'Itt a fonok en vagyok te csak crewmate vagy');
 
 -- --------------------------------------------------------
 
@@ -167,7 +168,8 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`ID`, `userID`, `date`, `postmessage`) VALUES
-(1, 1, '2022-12-13 09:58:18', 'Eléggé sus ez a veboldal');
+(1, 1, '2022-12-13 09:58:18', 'Eléggé sus ez a veboldal'),
+(2, 2, '2022-12-19 10:52:43', 'Na heloka elso posztom itten');
 
 -- --------------------------------------------------------
 
@@ -298,7 +300,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `emotions`
@@ -322,7 +324,7 @@ ALTER TABLE `pictures`
 -- AUTO_INCREMENT a táblához `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `reactions`
