@@ -11,6 +11,9 @@ app.run(function($rootScope, $locale, DB) {
     $rootScope.settings.company = 'Csapatnev';
     $rootScope.settings.author = '2/14.szft szoftverfejlesztő';
     $rootScope.loggedUser = angular.fromJson(sessionStorage.getItem('hukerszApp'));
+    DB.selectAll('users').then(function(res) {
+        $rootScope.users = res.data;
+    });
 
 });
 

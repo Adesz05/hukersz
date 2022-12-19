@@ -14,8 +14,12 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
     DB.selectAll('postdetails').then(function(res) {
         $scope.posts=res.data;
         $scope.posts.forEach(post => {
+            post.date = moment(post.date).format('YYYY-MM-DD H:mm')
             DB.select('commentdetails', 'postID', post.ID).then(function(res){
                 post.comments = res.data;
+                post.comments.forEach(comment => {
+                    comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
+                });
             });
         }); 
     });
