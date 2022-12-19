@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Dec 19. 11:08
+-- Létrehozás ideje: 2022. Dec 19. 11:15
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.8
 
@@ -59,7 +59,8 @@ CREATE TABLE `comments` (
 
 INSERT INTO `comments` (`ID`, `userID`, `postID`, `date`, `comment`) VALUES
 (1, 3, 1, '2022-12-13 09:59:57', 'Ésszel játszadozzál mert lehet hogy megesz egy impostor sussy'),
-(2, 1, 1, '2022-12-19 10:53:53', 'Itt a fonok en vagyok te csak crewmate vagy');
+(2, 1, 1, '2022-12-19 10:53:53', 'Itt a fonok en vagyok te csak crewmate vagy'),
+(3, 3, 1, '2022-12-19 11:11:23', 'Na niost jo nak kellene lennia a datumnak');
 
 -- --------------------------------------------------------
 
@@ -226,7 +227,7 @@ INSERT INTO `users` (`ID`, `name`, `email`, `password`, `phone`, `address`, `fil
 --
 DROP TABLE IF EXISTS `commentdetails`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commentdetails`  AS  select `comments`.`ID` AS `ID`,`posts`.`ID` AS `postID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`posts`.`date` AS `date`,`comments`.`comment` AS `comment` from (((`comments` join `posts` on(`posts`.`ID` = `comments`.`postID`)) join `users` on(`users`.`ID` = `comments`.`userID`)) join `pictures` on(`pictures`.`userID` = `users`.`ID`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commentdetails`  AS  select `comments`.`ID` AS `ID`,`posts`.`ID` AS `postID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`comments`.`date` AS `date`,`comments`.`comment` AS `comment` from (((`comments` join `posts` on(`posts`.`ID` = `comments`.`postID`)) join `users` on(`users`.`ID` = `comments`.`userID`)) join `pictures` on(`pictures`.`userID` = `users`.`ID`)) ;
 
 -- --------------------------------------------------------
 
@@ -300,7 +301,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `emotions`
