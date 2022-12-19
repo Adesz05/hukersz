@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Dec 19. 09:33
+-- Létrehozás ideje: 2022. Dec 19. 10:16
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.8
 
@@ -68,29 +68,29 @@ INSERT INTO `comments` (`ID`, `userID`, `postID`, `date`, `comment`) VALUES
 
 CREATE TABLE `emotions` (
   `ID` int(11) NOT NULL,
-  `emoticon` varchar(100) COLLATE utf8_hungarian_ci NOT NULL,
+  `class` varchar(100) COLLATE utf8_hungarian_ci NOT NULL,
   `name` varchar(30) COLLATE utf8_hungarian_ci NOT NULL,
-  `colors` varchar(40) COLLATE utf8_hungarian_ci DEFAULT NULL
+  `color` varchar(40) COLLATE utf8_hungarian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `emotions`
 --
 
-INSERT INTO `emotions` (`ID`, `emoticon`, `name`, `colors`) VALUES
-(1, '<i class=\"bi bi-hand-thumbs-up\"></i>', 'Kedvel', 'primary'),
-(2, '<i class=\"bi bi-hand-thumbs-down\"></i>', 'Nem kedvel', 'danger'),
-(3, '<i class=\"bi bi-heart\"></i>', 'Szeret', 'danger'),
-(4, '<i class=\"bi bi-heartbreak\"></i>', 'Nem szeret', 'danger'),
-(5, '<i class=\"bi bi-emoji-kiss\"></i>', 'Csókol', 'danger'),
-(6, '<i class=\"bi bi-emoji-heart-eyes\"></i>', 'Örül', 'warning'),
-(7, '<i class=\"bi bi-emoji-angry\"></i>', 'Mérges', 'danger'),
-(8, '<i class=\"bi bi-emoji-frown\"></i>', 'Szomorú', 'warning'),
-(9, '<i class=\"bi bi-emoji-laughing\"></i>', 'Nevet', 'warning'),
-(10, '<i class=\"bi bi-emoji-smile\"></i>', 'Mosolyog', 'warning'),
-(11, '<i class=\"bi bi-emoji-sunglasses\"></i>', 'Vagány', 'warning'),
-(12, '<i class=\"bi bi-emoji-wink\"></i>', 'Kacsint', 'warning'),
-(13, '<i class=\"bi bi-emoji-neutral\"></i>', 'Semleges', 'warning');
+INSERT INTO `emotions` (`ID`, `class`, `name`, `color`) VALUES
+(1, 'bi bi-hand-thumbs-up', 'Kedvel', 'primary'),
+(2, 'bi bi-hand-thumbs-down', 'Nem kedvel', 'danger'),
+(3, 'bi bi-heart', 'Szeret', 'danger'),
+(4, 'bi bi-heartbreak', 'Nem szeret', 'danger'),
+(5, 'bi bi-emoji-kiss', 'Csókol', 'danger'),
+(6, 'bi bi-emoji-heart-eyes', 'Örül', 'warning'),
+(7, 'bi bi-emoji-angry', 'Mérges', 'danger'),
+(8, 'bi bi-emoji-frown', 'Szomorú', 'warning'),
+(9, 'bi bi-emoji-laughing', 'Nevet', 'warning'),
+(10, 'bi bi-emoji-smile', 'Mosolyog', 'warning'),
+(11, 'bi bi-emoji-sunglasses', 'Vagány', 'warning'),
+(12, 'bi bi-emoji-wink', 'Kacsint', 'warning'),
+(13, 'bi bi-emoji-neutral', 'Semleges', 'warning');
 
 -- --------------------------------------------------------
 

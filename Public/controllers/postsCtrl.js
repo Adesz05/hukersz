@@ -19,14 +19,5 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
             });
         }); 
     });
-
-    DB.selectAll('emotions').then(function(res) {
-        $scope.posts = res.data;
-        $scope.posts.forEach(item => {
-            DB.select('comments', 'userID', item.ID).then(function(res) {
-                item.comments = res.data;
-            });
-        });
-    });
     
 });
