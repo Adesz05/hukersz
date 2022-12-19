@@ -4,8 +4,13 @@
       <h5 class="card-title">{{post.name}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{post.date}}</h6>
       <p class="card-text"> {{post.postmessage}}</p>
-      <button class="btn btn-{{emoticon.color}} rounded-circle mb-3" ng-repeat="emoticon in emoticons"><i class="{{emoticon.class}}"></i></button>
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Komment </button>
+      <div ng-click="count=0">
+        <button  ng-mouseover="count = count + 1" ng-click="count = 0"> -_- </button>
+        <div ng-if="count > 0 ">
+          <button ng-click="count = 0" class="btn btn-{{emoticon.color}} rounded-circle mb-3" ng-repeat="emoticon in emoticons"><i class="{{emoticon.class}}"></i></button>
+        </div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Komment </button>
+      </div>
       <div class="accordion accordion-flush" id="accordionFlushExample" ng-if="post.comments.length > 0">
         <div class="accordion-item ">
           <h2 class="accordion-header" id="flush-headingOne">
