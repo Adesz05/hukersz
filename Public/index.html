@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html ng-app="hukerszApp" lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <title>WhoCares</title>
 </head>
-<body>
+<body ng-controller="postsCtrl">
     <header>
         <div class="d-flex align-items-center" >
             <div class="col-6" ><img class="m-3 w-50" src="../img/WhoCares_logo.png" alt=""></div>
@@ -23,6 +23,7 @@
             <!-- postok helye-->
             <div class="card" ng-repeat ="post in posts">
                 <div class="card-body">
+                  <img src="{{post.filename}}">
                   <h5 class="card-title">{{post.name}}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">{{post.date}}</h6>
                   <p class="card-text"> {{post.postmessage}}</p>
