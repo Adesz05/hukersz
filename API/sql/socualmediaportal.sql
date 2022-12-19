@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Dec 19. 11:15
+-- Létrehozás ideje: 2022. Dec 19. 11:26
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.8
 
@@ -60,7 +60,7 @@ CREATE TABLE `comments` (
 INSERT INTO `comments` (`ID`, `userID`, `postID`, `date`, `comment`) VALUES
 (1, 3, 1, '2022-12-13 09:59:57', 'Ésszel játszadozzál mert lehet hogy megesz egy impostor sussy'),
 (2, 1, 1, '2022-12-19 10:53:53', 'Itt a fonok en vagyok te csak crewmate vagy'),
-(3, 3, 1, '2022-12-19 11:11:23', 'Na niost jo nak kellene lennia a datumnak');
+(4, 3, 1, '2022-12-19 11:21:23', 'jolesz');
 
 -- --------------------------------------------------------
 
@@ -170,7 +170,8 @@ CREATE TABLE `posts` (
 
 INSERT INTO `posts` (`ID`, `userID`, `date`, `postmessage`) VALUES
 (1, 1, '2022-12-13 09:58:18', 'Eléggé sus ez a veboldal'),
-(2, 2, '2022-12-19 10:52:43', 'Na heloka elso posztom itten');
+(2, 2, '2022-12-19 10:52:43', 'Na heloka elso posztom itten'),
+(4, 1, '2022-12-19 11:24:18', 'Annyit postolok amennyit akarok hgehe');
 
 -- --------------------------------------------------------
 
@@ -227,7 +228,7 @@ INSERT INTO `users` (`ID`, `name`, `email`, `password`, `phone`, `address`, `fil
 --
 DROP TABLE IF EXISTS `commentdetails`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commentdetails`  AS  select `comments`.`ID` AS `ID`,`posts`.`ID` AS `postID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`comments`.`date` AS `date`,`comments`.`comment` AS `comment` from (((`comments` join `posts` on(`posts`.`ID` = `comments`.`postID`)) join `users` on(`users`.`ID` = `comments`.`userID`)) join `pictures` on(`pictures`.`userID` = `users`.`ID`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commentdetails`  AS  select `comments`.`ID` AS `ID`,`posts`.`ID` AS `postID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`comments`.`date` AS `date`,`comments`.`comment` AS `comment` from (((`comments` join `posts` on(`posts`.`ID` = `comments`.`postID`)) join `users` on(`users`.`ID` = `comments`.`userID`)) join `pictures` on(`pictures`.`userID` = `users`.`ID`)) order by `comments`.`date` ;
 
 -- --------------------------------------------------------
 
@@ -236,7 +237,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `postdetails`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `postdetails`  AS  select `posts`.`ID` AS `ID`,`users`.`ID` AS `userID`,`users`.`name` AS `name`,`posts`.`date` AS `date`,`posts`.`postmessage` AS `postmessage`,`pictures`.`filename` AS `filename` from ((`posts` join `users` on(`users`.`ID` = `posts`.`userID`)) join `pictures` on(`users`.`ID` = `pictures`.`userID`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `postdetails`  AS  select `posts`.`ID` AS `ID`,`users`.`ID` AS `userID`,`users`.`name` AS `name`,`posts`.`date` AS `date`,`posts`.`postmessage` AS `postmessage`,`pictures`.`filename` AS `filename` from ((`posts` join `users` on(`users`.`ID` = `posts`.`userID`)) join `pictures` on(`users`.`ID` = `pictures`.`userID`)) order by `posts`.`date` ;
 
 --
 -- Indexek a kiírt táblákhoz
@@ -301,7 +302,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `emotions`
@@ -325,7 +326,7 @@ ALTER TABLE `pictures`
 -- AUTO_INCREMENT a táblához `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `reactions`
