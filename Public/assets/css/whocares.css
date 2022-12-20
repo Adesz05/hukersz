@@ -1,5 +1,6 @@
 body {
     background-color: #a2aebb;
+    font-size: larger;
 }
 header{
     background-color: #23b5d3;
@@ -37,5 +38,14 @@ h2{
 ul{
     border: 2px solid #23b5d3;
     box-shadow: 5px 5px 10px #75abbc;
+}
+
+.kek{
+    background-color: #23b5d3 !important;
+    border: 1px solid black !important;
+}
+.szurke{
+    background-color: #34383b !important;
+    border: 1px solid black !important;
 }
 
