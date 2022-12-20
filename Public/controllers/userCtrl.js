@@ -16,24 +16,22 @@ app.controller('userCtrl', function($scope, DB, $rootScope, $location) {
                     let data = {
                         name: $scope.user.name,
                         email: $scope.user.email,
-                        password: CryptoJS.SHA1($scope.user.pass).toString(),
+                        password: CryptoJS.SHA1($scope.user.pass1).toString(),
                         phone: $scope.user.phone,
                         address: $scope.user.address,
-                        rights: 'user'
                     }
 
                     DB.insert('users', data).then(function(res) {
                         if (res.data.affectedRows == 0) {
                             alert('Váratlan hiba történt az adatbázis művelet során!');
                         } else {
-                            DB.insert('pictures', {userID: res.insertId, filename: ""}).then(function(res){
-                                if (res.data.affectedRows != 0) {
-                                    alert('A regisztráció sikeres! Beléphetsz az oldalra!');
-                                    $scope.user = {};
-                                } else {
-                                    alert('Váratlan hiba történt az adatbázis művelet során!');
-                                }
-                            })
+                            if (res.data.affectedRows != 0) {
+                                alert('A regisztráció sikeres! Beléphetsz az oldalra!');
+                                $scope.user = {};
+                                $location.path('/');
+                            } else {
+                                alert('Váratlan hiba történt az adatbázis művelet során!');
+                            }
                         }
                     });
                 }

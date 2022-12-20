@@ -4,19 +4,19 @@
             <form>
                 <div class="mb-3">
                     <label for="username" class="form-label">Név</label>
-                    <input type="text" class="form-control" name="username">
+                    <input type="text" class="form-control" name="username" ng-model="user.name">
                 </div>
                 <div class="mb-3">
                     <label for="usermail" class="form-label">E-mail cím</label>
-                    <input type="email" class="form-control" name="usermail">
+                    <input type="email" class="form-control" name="usermail" ng-model="user.email">
                 </div>
                 <div class="mb-3">
                     <label for="userpass1" class="form-label">Jelszó</label>
-                    <input type="password" class="form-control" name="userpass1">
+                    <input type="password" class="form-control" name="userpass1" ng-model="user.pass1">
                 </div>
                 <div class="mb-3">
                     <label for="userpass2" class="form-label">Jelszó újra</label>
-                    <input type="password" class="form-control" name="userpass2">
+                    <input type="password" class="form-control" name="userpass2" ng-model="user.pass2">
                 </div>
 
                 <button ng-click="registration()" class="btn btn-primary mb-3 kek">Regisztráció</button>
