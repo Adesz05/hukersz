@@ -16,7 +16,7 @@ app.controller('userCtrl', function($scope, DB, $rootScope, $location) {
                     let data = {
                         name: $scope.user.name,
                         email: $scope.user.email,
-                        passwd: CryptoJS.SHA1($scope.user.pass1).toString(),
+                        password: CryptoJS.SHA1($scope.user.pass).toString(),
                         phone: $scope.user.phone,
                         address: $scope.user.address,
                         rights: 'user'
@@ -42,13 +42,13 @@ app.controller('userCtrl', function($scope, DB, $rootScope, $location) {
     };
 
     $scope.login = function() {
-        if ($scope.user.email == null || $scope.user.pass1 == null) {
+        if ($scope.user.email == null || $scope.user.pass == null) {
             alert('Nem adtál meg minden kötelező adatot!');
         } else {
             let data = {
                 table: 'users',
                 email: $scope.user.email,
-                password: CryptoJS.SHA1($scope.user.pass1).toString()
+                password: CryptoJS.SHA1($scope.user.pass).toString()
             }
 
             DB.logincheck(data).then(function(res) {
@@ -59,24 +59,19 @@ app.controller('userCtrl', function($scope, DB, $rootScope, $location) {
                     if (res.data[0].status == 0) {
                         alert('Tiltott felhasználó!');
                     } else {
-
                         res.data[0].last = moment(new Date()).format('YYYY-MM-DD H:m:s');
                         $rootScope.loggedUser = res.data[0];
                         let data = {
                             last: res.data[0].last
                         }
-                        DB.update('users', res.data[0].ID, data).then(function(res) {
-                            sessionStorage.setItem('pizzeriaApp', angular.toJson($rootScope.loggedUser));
+                        DB.update('users', res.data[0].ID, data).then(function(result) {
+                            sessionStorage.setItem('loggedUser', angular.toJson($rootScope.loggedUser));
                         });
-
-                        DB.select('carts', 'userID', $rootScope.loggedUser.ID).then(function(res) {
-                            $rootScope.itemsInCart = res.data.length;
-                        });
+                        $location.path('/posts');
                     }
                 }
             });
         }
     }
-
 
 });
