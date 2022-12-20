@@ -10,6 +10,7 @@ app.run(function($rootScope, $locale, DB) {
     $rootScope.settings.appTitle = 'Hukersz';
     $rootScope.settings.company = 'Csapatnev';
     $rootScope.settings.author = '2/14.szft szoftverfejlesztő';
+    $rootScope.loggedUser = angular.fromJson(sessionStorage.getItem('loggedUser'));
     DB.selectAll('users').then(function(res) {
         $rootScope.users = res.data;
     });

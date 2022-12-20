@@ -5,11 +5,11 @@
         <form>
             <div class="mb-3">
                 <label for="usermail" class="form-label">E-mail cím</label>
-                <input type="email" class="form-control" name="usermail">
+                <input type="email" class="form-control" name="usermail" ng-model="user.email">
             </div>
             <div class="mb-3">
                 <label for="userpass" class="form-label">Jelszó</label>
-                <input type="password" class="form-control" name="userpass">
+                <input type="password" class="form-control" name="userpass" ng-model="user.pass">
             </div>
             <button  ng-click="login()" class="btn btn-primary mb-3 kek">Bejelentkezés</button>
             <a href="#!/reg" class="btn btn-secondary mb-3 szurke">Még nincs felhasználód(ne is legyen)</a>
