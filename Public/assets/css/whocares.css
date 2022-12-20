@@ -1,6 +1,6 @@
 body {
     background-color: #a2aebb;
-    font-size: larger;
+    font-size: 150%;
 }
 header{
     background-color: #23b5d3;
@@ -8,6 +8,11 @@ header{
 main{
     margin-top: 1vh;
     margin-left: 10vw;
+}
+h3{
+    font-weight: bolder;
+    margin-top: 30%;
+    letter-spacing: 3px;
 }
 .embik{
     padding-left: 3vw;

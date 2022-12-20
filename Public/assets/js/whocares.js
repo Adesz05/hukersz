@@ -1,6 +1,6 @@
 let app = new angular.module('hukerszApp', ['ngRoute']);
 
-app.run(function($rootScope, $locale, DB) {
+app.run(function($rootScope, $locale, DB, $location) {
 
     $locale.NUMBER_FORMATS.GROUP_SEP = ".";
     $locale.NUMBER_FORMATS.DECIMAL_SEP = ",";
@@ -13,6 +13,11 @@ app.run(function($rootScope, $locale, DB) {
     DB.selectAll('users').then(function(res) {
         $rootScope.users = res.data;
     });
+
+    $rootScope.logout = function() {
+        $rootScope.loggedUser = null;
+        $location.path('/');
+    }
 
 });
 

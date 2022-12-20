@@ -13,14 +13,14 @@
     <header>
         <div class="d-flex align-items-center" >
             <div class="col-6" ><img class="m-3 w-50" src="../img/WhoCares_logo.png" alt=""></div>
-            <div class="col-4"></div>
+            <div class="col-4"> </div>
             <div class="col-2 text-end">
-                <button onclick="logout()" class="btn btn-danger m-3"><i class="bi bi-box-arrow-right"></i></button></div>
+                <button ng-click="logout()" class="btn btn-danger m-3"><i class="bi bi-box-arrow-right"  ></i></button></div>
         </div>
     </header>
 
     <main class="container" ng-view> </main>
-    
+
     <div ng-include="'modal.html'"></div>
 
     <script src="./assets/js/jquery.min.js"></script>

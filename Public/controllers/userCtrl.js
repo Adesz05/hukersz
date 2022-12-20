@@ -78,8 +78,5 @@ app.controller('userCtrl', function($scope, DB, $rootScope, $location) {
         }
     }
 
-    $scope.logout = function() {
-        $rootScope.loggedUser = null;
-        $location.path('/');
-    }
+
 });
