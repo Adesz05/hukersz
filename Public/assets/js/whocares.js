@@ -10,7 +10,6 @@ app.run(function($rootScope, $locale, DB) {
     $rootScope.settings.appTitle = 'Hukersz';
     $rootScope.settings.company = 'Csapatnev';
     $rootScope.settings.author = '2/14.szft szoftverfejlesztő';
-    $rootScope.loggedUser = angular.fromJson(sessionStorage.getItem('hukerszApp'));
     DB.selectAll('users').then(function(res) {
         $rootScope.users = res.data;
     });
@@ -20,14 +19,18 @@ app.run(function($rootScope, $locale, DB) {
 app.config(function($routeProvider) {
     $routeProvider
     // bárki számára
-        .when('/posts', {
-            templateUrl: 'index.html',
-            controller: 'postsCtrl'
+        .when('/', {
+            templateUrl: 'views/login.html',
+            controller: 'userCtrl'
         })
-        .when('/'), {
-            templateUrl: 'users.html',
+        .when('/reg', {
+            templateUrl: 'views/registration.html',
             controller: 'userCtrl'  
-        }
+        })
+        .when('/posts', {
+            templateUrl: 'views/posts.html',
+            controller: 'postsCtrl'  
+        })
         .otherwise('/')
 });
 
