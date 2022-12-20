@@ -23,5 +23,7 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
             });
         }); 
     });
+
+  
     
 });
