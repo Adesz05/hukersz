@@ -20,10 +20,14 @@ app.run(function($rootScope, $locale, DB) {
 app.config(function($routeProvider) {
     $routeProvider
     // bárki számára
-        .when('/', {
+        .when('/posts', {
             templateUrl: 'index.html',
             controller: 'postsCtrl'
         })
+        .when('/'), {
+            templateUrl: 'users.html',
+            controller: 'userCtrl'  
+        }
         .otherwise('/')
 });
 
