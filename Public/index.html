@@ -9,39 +9,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <title>WhoCares</title>
 </head>
-<body ng-controller="postsCtrl">
+<body>
     <header>
         <div class="d-flex align-items-center" >
             <div class="col-6" ><img class="m-3 w-50" src="../img/WhoCares_logo.png" alt=""></div>
-            <div class="col-4"><h2>Janika</h2></div>
+            <div class="col-4"></div>
             <div class="col-2 text-end">
-                <button class="btn btn-danger m-3"><i class="bi bi-box-arrow-right"></i></button></div>
+                <button ng-if="loggedUser != null" class="btn btn-danger m-3"><i class="bi bi-box-arrow-right"></i></button></div>
         </div>
     </header>
-    <main class="d-flex">
-        <div class="col-8">
-            <!-- postok helye-->
-            <div ng-include="'./views/posts.html'"></div>
-            <!--'posts.html'-->
-        </div>
-        <div class="col-4 embik">
-          <!-- Felhasznalok helye-->
-         <ul class="list-group list-group-flush" >
-              <li class="list-group-item" ng-repeat="user in users">
-                  <img src="../Public/uploads/nopic.png" ng-if="user.filename == '' ">
-                  <img src="../Public/uploads/{{ user.filename}}" ng-if="user.filename != ''">
-                  {{user.name}}
-              </li>
-              
-         </ul>
-      </div>
-        
-    </main>
-    <footer></footer>
-
-
     
-
+    <main class="container" ng-view>
+       tartalom
+    </main>
     <div ng-include="'modal.html'"></div>
 
     <script src="./assets/js/jquery.min.js"></script>
