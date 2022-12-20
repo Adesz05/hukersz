@@ -1,5 +1,30 @@
+
+
+
 <div class="d-flex">
+  
 <div class="col-8">
+  <div class="accordion accordion-flush" id="accordionFlushExample" >
+  <div class="accordion-item ">
+    <h2 class="accordion-header" id="flush-headingOne">
+      <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#newpost" aria-expanded="false">
+        Post hozzáadása
+      </button>
+    </h2>
+    <div id="newpost" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div>
+          <form>
+            <div class="mb-3">
+              Üzenet: 
+              <textarea class="form-control mb-3"></textarea>
+              <button class="btn btn-primary kek mb-3"> Beküldés </button>
+          </div>
+          </form>
+          
+      </div>
+    </div>
+  </div>
+</div>
   <!-- postok helye-->
   <div class="card" ng-repeat ="post in posts" ng-click="count = 0">
     <div class="card-body">
@@ -14,14 +39,15 @@
         </div>
         <button class="btn btn-primary szurke" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Komment </button>
       </div>
+
       <div class="accordion accordion-flush" id="accordionFlushExample" ng-if="post.comments.length > 0">
         <div class="accordion-item ">
           <h2 class="accordion-header" id="flush-headingOne">
-            <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#comments{{ $index }}" aria-expanded="false">
               Hozászólások ({{post.comments.length}})
             </button>
           </h2>
-          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" ng-repeat="comment in post.comments">
+          <div id="comments{{ $parent.$index }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample" ng-repeat="comment in post.comments">
               <div>
                 <img class="rounded-circle" src="{{comment.filename}}" alt="Comment Profilkép">
                 <h6>{{comment.name}}</h6>
@@ -33,6 +59,7 @@
           </div>
         </div>
     </div>
+
     </div>
   </div>
   <!--'posts.html'-->

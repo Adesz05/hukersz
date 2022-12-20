@@ -19,7 +19,6 @@ app.run(function($rootScope, $locale, DB, $location) {
         $rootScope.loggedUser = null;
         $location.path('/');
     }
-
 });
 
 app.config(function($routeProvider) {
