@@ -35,7 +35,7 @@
       <div ng-click="count=0">
         <button  ng-mouseover="count = count + 1" ng-click="count = 0" class="btn btn-primary kek"> -_- </button>
         <div ng-if="count > 0 ">
-          <button  ng-click="reakcio(emoticon.ID)" class="btn btn-{{emoticon.color}} rounded-circle mb-3" ng-repeat="emoticon in emoticons"><i class="{{emoticon.class}}"></i></button>
+          <button  ng-click="reakcio(emoticon.ID)" class="btn btn-outline-{{emoticon.color}} rounded-circle mb-3" ng-repeat="emoticon in emoticons"><i class="{{emoticon.class}}"></i></button>
         </div>
         <button class="btn btn-primary szurke" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Komment </button>
       </div>
