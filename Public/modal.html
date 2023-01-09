@@ -8,12 +8,12 @@
           <h5>Írd ide a hozzászólásod:</h5>
           <div class="input-group">
             <span class="input-group-text"><img class="rounded-circle" src="{{loggedUser.filename}}" alt=""></span>
-            <textarea class="form-control" aria-label="With textarea"></textarea>
+            <textarea class="form-control" ng-model="newComment.text"></textarea>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary szurke" data-bs-dismiss="modal"> Bezár </button>
-          <button type="button" class="btn btn-primary kek" onclick="komment()">Komment</button>
+          <button type="button" class="btn btn-primary kek" ng-click="komment()" data-bs-dismiss="modal">Komment</button>
         </div>
       </div>
     </div>
