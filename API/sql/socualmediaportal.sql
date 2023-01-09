@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Dec 19. 11:26
+-- Létrehozás ideje: 2023. Jan 09. 10:35
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.8
 
@@ -60,7 +60,15 @@ CREATE TABLE `comments` (
 INSERT INTO `comments` (`ID`, `userID`, `postID`, `date`, `comment`) VALUES
 (1, 3, 1, '2022-12-13 09:59:57', 'Ésszel játszadozzál mert lehet hogy megesz egy impostor sussy'),
 (2, 1, 1, '2022-12-19 10:53:53', 'Itt a fonok en vagyok te csak crewmate vagy'),
-(4, 3, 1, '2022-12-19 11:21:23', 'jolesz');
+(4, 3, 1, '2022-12-19 11:21:23', 'jolesz'),
+(6, 3, 1, '2023-01-09 09:58:00', 'He?'),
+(7, 3, 1, '2023-01-09 10:06:00', 'Na igen'),
+(8, 3, 1, '2023-01-09 10:07:00', 'aha'),
+(9, 3, 2, '2023-01-09 10:07:00', 'na ez itt az első'),
+(10, 3, 1, '2023-01-09 10:17:00', '7. valami'),
+(11, 3, 1, '2023-01-09 10:23:00', '8.?'),
+(12, 3, 1, '2023-01-09 10:23:00', '9.?'),
+(13, 3, 1, '2023-01-09 10:24:00', '10.?');
 
 -- --------------------------------------------------------
 
@@ -219,7 +227,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`ID`, `name`, `email`, `password`, `phone`, `address`, `filename`, `reg`, `last`, `status`) VALUES
 (1, 'Első Amóga', 'amoga@amog.us', 'amoga', 'amogamogtelefon', 'amoga utca amoga', NULL, '2022-12-12 11:34:16', NULL, 1),
 (2, 'Masodik muskétás', 'musk@tesla.com', 'musketa', 'amogatelefon', 'amoga utca0', NULL, '2022-12-13 09:57:02', NULL, 1),
-(3, 'admin', 'admin@admin.com', 'a', 'adminfone', 'adminokhelye', NULL, '2022-12-13 09:57:45', NULL, 1);
+(3, 'admin', 'admin@admin.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'adminfone', 'adminokhelye', NULL, '2022-12-13 09:57:45', '2023-01-09 09:19:14', 1);
 
 -- --------------------------------------------------------
 
@@ -228,7 +236,7 @@ INSERT INTO `users` (`ID`, `name`, `email`, `password`, `phone`, `address`, `fil
 --
 DROP TABLE IF EXISTS `commentdetails`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commentdetails`  AS  select `comments`.`ID` AS `ID`,`posts`.`ID` AS `postID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`comments`.`date` AS `date`,`comments`.`comment` AS `comment` from (((`comments` join `posts` on(`posts`.`ID` = `comments`.`postID`)) join `users` on(`users`.`ID` = `comments`.`userID`)) join `pictures` on(`pictures`.`userID` = `users`.`ID`)) order by `comments`.`date` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `commentdetails`  AS  select `comments`.`ID` AS `ID`,`posts`.`ID` AS `postID`,`users`.`name` AS `name`,`pictures`.`filename` AS `filename`,`comments`.`date` AS `date`,`comments`.`comment` AS `comment` from (((`comments` join `posts` on(`posts`.`ID` = `comments`.`postID`)) join `users` on(`users`.`ID` = `comments`.`userID`)) join `pictures` on(`pictures`.`userID` = `users`.`ID`)) order by `comments`.`date` desc ;
 
 -- --------------------------------------------------------
 
@@ -237,7 +245,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `postdetails`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `postdetails`  AS  select `posts`.`ID` AS `ID`,`users`.`ID` AS `userID`,`users`.`name` AS `name`,`posts`.`date` AS `date`,`posts`.`postmessage` AS `postmessage`,`pictures`.`filename` AS `filename` from ((`posts` join `users` on(`users`.`ID` = `posts`.`userID`)) join `pictures` on(`users`.`ID` = `pictures`.`userID`)) order by `posts`.`date` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `postdetails`  AS  select `posts`.`ID` AS `ID`,`users`.`ID` AS `userID`,`users`.`name` AS `name`,`posts`.`date` AS `date`,`posts`.`postmessage` AS `postmessage`,`pictures`.`filename` AS `filename` from ((`posts` join `users` on(`users`.`ID` = `posts`.`userID`)) join `pictures` on(`users`.`ID` = `pictures`.`userID`)) order by `posts`.`date` desc ;
 
 --
 -- Indexek a kiírt táblákhoz
@@ -302,7 +310,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT a táblához `emotions`
