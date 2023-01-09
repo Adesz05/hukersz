@@ -35,7 +35,7 @@
       <div>
     
         <div>
-          <button  ng-click="reakcio(emoticon.ID)" class="btn btn-outline-{{emoticon.color}} rounded-circle mb-3" ng-repeat="emoticon in emoticons"><i class="{{emoticon.class}}"></i></button>
+          <button id="reagalas{{post.ID}}{{$index+1}}" ng-click="reakcio(post.ID,emoticon.ID)" class="btn rounded-circle mb-3 btn-outline-{{emoticon.color}}" ng-repeat="emoticon in emoticons"><i class="{{emoticon.class}}"></i></button>
         </div>
         <button class="btn btn-primary szurke" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Komment </button>
       </div>
