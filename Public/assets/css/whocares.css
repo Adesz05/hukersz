@@ -15,8 +15,9 @@ h3{
     letter-spacing: 3px;
 }
 .embik{
-    padding-left: 3vw;
-    padding-right: 3vw;
+    margin-left: 7vw;
+    margin-right: 3vw;
+    margin-top: 1%;
 }
 
 em {
@@ -64,4 +65,10 @@ ul{
     margin-top: 1%;
     margin-left: 2%;
     margin-right: 2%;
+}
+.logged{
+    font-weight: bolder;
+    font-style: italic;
+    letter-spacing: 2px;
+    font-size: 200%;
 }
