@@ -1,4 +1,4 @@
-app.controller('postsCtrl', function($scope, $rootScope, DB) {
+app.controller('postsCtrl', function($scope, $rootScope, DB, $location) {
     $scope.users = [];
     $scope.emocitons = [];
     $scope.posts = [];
@@ -153,6 +153,14 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
                 }
             });
         }
+    }
+
+    $scope.choosePartner = function(user){
+        $rootScope.partner = user;
+        sessionStorage.setItem('partner', angular.toJson($rootScope.partner));
+        //#!/chat
+        $location.path('/chat'); 
+
     }
   
     

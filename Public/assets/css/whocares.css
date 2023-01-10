@@ -82,3 +82,13 @@ ul{
     width: 40px;
     height: 40px;
 }
+
+.chatMap{
+    height: 70vh;
+    background-color: rgb(243, 243, 243);
+    box-shadow: 2px 2px 20px gray;
+}
+
+#messageboxok{
+    height: 60vh;
+}

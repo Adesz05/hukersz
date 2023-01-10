@@ -1,0 +1,25 @@
+<h2 class="text-start">
+    {{partner.name}}
+</h2>
+<div class="chatMap">
+    <div class="overflow-auto" id="messageboxok" style="width: 1fr;">
+        <div  class="d-flex" ng-repeat="message in messages" ng-class="{'flex-row-reverse': message.fromID == loggedUser.ID}" ng-class="{'flex-row': message.fromID != loggedUser.ID}">
+
+            <div class="card m-2" style="min-width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">{{partner.name}}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{message.date}}</h6>
+                  <p class="card-text">{{message.message}}</p>
+                </div>
+              </div>
+              
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Üzenet:" ng-model="newMessage"></textarea>
+            <label for="floatingInputGroup1">Üzenet:</label>
+        </div>
+        <span class="input-group-text" ng-click="sending()"><i class="bi bi-send"></i></span>
+      </div>
+</div>

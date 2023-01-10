@@ -11,6 +11,7 @@ app.run(function($rootScope, $locale, DB, $location) {
     $rootScope.settings.company = 'Csapatnev';
     $rootScope.settings.author = '2/14.szft szoftverfejlesztő';
     $rootScope.loggedUser = angular.fromJson(sessionStorage.getItem('loggedUser'));
+    $rootScope.partner = angular.fromJson(sessionStorage.getItem('partner'));
     DB.selectAll('users').then(function(res) {
         $rootScope.users = res.data;
     });
@@ -35,6 +36,10 @@ app.config(function($routeProvider) {
         .when('/posts', {
             templateUrl: 'views/posts.html',
             controller: 'postsCtrl'  
+        })
+        .when('/chat', {
+            templateUrl: 'views/chat.html',
+            controller: 'chatCtrl'
         })
         .otherwise('/')
 });
