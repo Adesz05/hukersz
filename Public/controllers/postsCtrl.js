@@ -56,7 +56,7 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
     $scope.reakcio = function(postid,index){
         let reagalas = document.getElementById('reagalas'+postid+index);
         let classnevek = reagalas.className
-        let joclassnev=classnevek.split(' ')[3]
+        let joclassnev=classnevek.split(' ')[4]
         if(joclassnev.split('-')[1]=="outline"){
             let csakazoutlineclasskiszedes=joclassnev.split('-')[0]+"-"+joclassnev.split('-')[2]
             reagalas.classList.remove(joclassnev)
