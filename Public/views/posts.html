@@ -13,11 +13,12 @@
     </h2>
     <div id="newpost" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
         <div>
+
           <form>
             <div class="mb-3">
               Üzenet: 
-              <textarea class="form-control mb-3"></textarea>
-              <button class="btn btn-primary kek mb-3"> Beküldés </button>
+              <textarea class="form-control mb-3" ng-model="newPost"></textarea>
+              <button class="btn btn-primary kek mb-3" ng-click="posting()" data-bs-toggle="collapse" data-bs-target="#newpost"> Beküldés </button>
           </div>
           </form>
           
@@ -33,11 +34,15 @@
       <h6 class="card-subtitle mb-2 text-muted">{{post.date}}</h6>
       <p class="card-text"> {{post.postmessage}}</p>
       <div>
-    
         <div>
           <button id="reagalas{{post.ID}}{{$index+1}}" ng-click="reakcio(post.ID,emoticon.ID)" class="btn rounded-circle mb-3 btn-outline-{{emoticon.color}}" ng-repeat="emoticon in emoticons"><i class="{{emoticon.class}}"></i></button>
         </div>
-        <button class="btn btn-primary szurke" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ng-click="kommentSelectPost(post.ID, $index)"> Komment </button>
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-primary szurke" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ng-click="kommentSelectPost(post.ID, $index)"> Komment </button>
+          <div class="btn btn-danger" ng-if="loggedUser.ID == post.userID" ng-click="postDelete(post.ID)">
+            <i class="bi bi-trash"></i>
+          </div>
+        </div>
       </div>
 
       <div class="accordion accordion-flush" id="accordionFlushExample" ng-if="post.comments.length > 0">
