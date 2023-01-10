@@ -35,13 +35,13 @@
   <!-- postok helye-->
   <div class="card" ng-repeat ="post in posts">
     <div class="card-body">
-      <img src="{{post.filename}}">
+      <img class="profkep" src="/Public/assets/img/{{post.filename}}">
       <h5 class="card-title">{{post.name}}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">{{post.date}}</h6>
-      <p class="card-text"> {{post.postmessage}}</p>
+      <h6 class="card-subtitle komdat">{{post.date}}</h6>
+      <p class="card-text mt-3"> {{post.postmessage}}</p>
       <div>
         <div>
-          <button id="reagalas{{post.ID}}{{$index+1}}" ng-click="reakcio(post.ID,emoticon.ID)" class="btn rounded-circle mb-3 btn-outline-{{emoticon.color}}" ng-repeat="emoticon in post.emoticons"><i class="{{emoticon.class}}"></i>{{emoticon.counter}}</button>
+          <button id="reagalas{{post.ID}}{{$index+1}}" ng-click="reakcio(post.ID,emoticon.ID)" class="reakcios btn rounded-circle mb-3 btn-outline-{{emoticon.color}}" ng-repeat="emoticon in post.emoticons"><i class="{{emoticon.class}}"></i>{{emoticon.counter}}</button>
         </div>
         <div class="d-flex justify-content-between">
           <button class="btn btn-primary szurke" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ng-click="kommentSelectPost(post.ID, $index)"> Komment </button>
@@ -59,14 +59,14 @@
             </button>
           </h2>
           <div id="comments{{ $parent.$index }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample" ng-repeat="comment in post.comments">
-              <div>
-                <img class="rounded-circle" src="{{comment.filename}}" alt="Comment Profilkép">
+              <div class="d-flex">
+                <img class="rounded-circle profkep" src="/Public/assets/img/{{comment.filename}}">
                 <h6>{{comment.name}}</h6>
-              </div>
-            <div> 
-                {{comment.date}}
-              <br>
+                </div>
+                <div>
+                <span class="card-subtitle komdat"> {{comment.date}} </span> <br>
                 {{comment.comment}}
+                <hr>
             </div>
           </div>
         </div>
@@ -78,11 +78,10 @@
 </div>
 
 <div class="col-4 embik">
-<!-- Felhasznalok helye-->
+<!-- Felhasznalok helye--> 
 <ul class="list-group list-group-flush" >
     <li class="list-group-item" ng-repeat="user in users">
-        <img src="../Public/uploads/nopic.png" ng-if="user.filename == '' ">
-        <img src="../Public/uploads/{{ user.filename}}" ng-if="user.filename != ''">
+        <img class="profkep" src="/Public/assets/img/{{user.filename}}">
         {{user.name}}
     </li>
     
