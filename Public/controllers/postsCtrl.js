@@ -23,8 +23,35 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
                     comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
                 });
             });
+            DB.selectAll('emotions').then(function(res) {
+                post.emoticons = res.data;
+                post.emoticons.forEach(element => {
+                    element.counter = 0;
+                });
+
+                DB.select('reactions', 'postID', post.ID).then(function(res) {
+                    post.emoticons.forEach(ikon => {
+                        res.data.forEach(react => {
+                            if (react.emojiID == ikon.ID) {
+                                ikon.counter += 1;
+                                ikon.users = [];
+                                ikon.users.push(react.userID);
+                            }
+                        });
+                    });
+                })
+            });
+
+
         }); 
     });
+
+    $scope.reagalt = function(index, color){
+        for (let i = 0; i < posts[index].length; i++) {
+            const element = [i];
+            
+        }
+    }
 
     $scope.reakcio = function(postid,index){
         let reagalas = document.getElementById('reagalas'+postid+index);
