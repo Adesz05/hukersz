@@ -72,3 +72,13 @@ ul{
     letter-spacing: 2px;
     font-size: 200%;
 }
+.komdat{
+    font-size: 60%;
+    font-style: italic;
+    margin: 0%;
+    padding: 0%;
+}
+.profkep{
+    width: 40px;
+    height: 40px;
+}
