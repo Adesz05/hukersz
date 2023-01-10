@@ -25,48 +25,134 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
             });
             DB.selectAll('emotions').then(function(res) {
                 post.emoticons = res.data;
-                post.emoticons.forEach(element => {
-                    element.counter = 0;
-                });
-
                 DB.select('reactions', 'postID', post.ID).then(function(res) {
                     post.emoticons.forEach(ikon => {
+                        ikon.users = [];
                         res.data.forEach(react => {
                             if (react.emojiID == ikon.ID) {
-                                ikon.counter += 1;
-                                ikon.users = [];
-                                ikon.users.push(react.userID);
+                                ikon.users.push({
+                                    ID: react.userID,
+                                    reactionID: react.ID
+                                });
                             }
                         });
                     });
                 })
             });
-
-
         }); 
     });
 
-    $scope.reagalt = function(index, color){
-        for (let i = 0; i < posts[index].length; i++) {
-            const element = [i];
-            
+    $scope.posting = function() {
+        if ($scope.newPost.length > 0){
+            let data = {
+                userID: $rootScope.loggedUser.ID,
+                date: moment(new Date()).format('YYYY-MM-DD H:mm'),
+                postmessage: $scope.newPost
+            };
+            DB.insert("posts", data).then(function(res) {
+                if (res.data.affectedRows == 0) {
+                    alert('Váratlan hiba történt az adatbázis művelet során!');
+                } else {
+                    DB.selectAll('postdetails').then(function(res) {
+                        $scope.posts=res.data;
+                        $scope.posts.forEach(post => {
+                            post.date = moment(post.date).format('YYYY-MM-DD H:mm')
+                            DB.select('commentdetails', 'postID', post.ID).then(function(res){
+                                post.comments = res.data;
+                                post.comments.forEach(comment => {
+                                    comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
+                                });
+                            });
+                            DB.selectAll('emotions').then(function(res) {
+                                post.emoticons = res.data;
+                                DB.select('reactions', 'postID', post.ID).then(function(res) {
+                                    post.emoticons.forEach(ikon => {
+                                        ikon.users = [];
+                                        console.log(ikon.users.length)
+                                        res.data.forEach(react => {
+                                            if (react.emojiID == ikon.ID) {
+                                                ikon.users.push({
+                                                    ID: react.userID,
+                                                    reactionID: react.ID
+                                                });
+                                            }
+                                        });
+                                    });
+                                })
+                            });
+                        }); 
+                    });
+                }
+            });
         }
     }
 
-    $scope.reakcio = function(postid,index){
-        let reagalas = document.getElementById('reagalas'+postid+index);
-        let classnevek = reagalas.className
-        let joclassnev=classnevek.split(' ')[4]
-        if(joclassnev.split('-')[1]=="outline"){
-            let csakazoutlineclasskiszedes=joclassnev.split('-')[0]+"-"+joclassnev.split('-')[2]
-            reagalas.classList.remove(joclassnev)
-            reagalas.classList.add(csakazoutlineclasskiszedes)
-            
-        }else{
-            reagalas.classList.remove(joclassnev)
-            let outlinehozzaadas=joclassnev.split('-')[0]+"-outline-"+joclassnev.split('-')[1]
-            reagalas.classList.add(outlinehozzaadas)
+    $scope.postDelete = function(postID) {
 
+        DB.delete('comments', 'postID', postID).then(function(res) {
+            DB.delete('posts', 'ID', postID).then(function(res) {
+                if (res.data.affectedRows == 0) {
+                    alert('Váratlan hiba történt az adatbázis művelet során!');
+                } else {
+                    DB.selectAll('postdetails').then(function(res) {
+                        $scope.posts=res.data;
+                        $scope.posts.forEach(post => {
+                            post.date = moment(post.date).format('YYYY-MM-DD H:mm')
+                            DB.select('commentdetails', 'postID', post.ID).then(function(res){
+                                post.comments = res.data;
+                                post.comments.forEach(comment => {
+                                    comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
+                                });
+                            });
+                        });
+                    });
+                }
+            });
+        })
+    }
+
+    $scope.reagalt = function(users){
+        if (users == null) {
+            return false;
+        }
+        for (let i = 0; i < users.length; i++) {
+            if ($rootScope.loggedUser.ID == users[i].ID) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    $scope.reagalas = function(emoticon, postid){
+        let data = {
+            userID: $rootScope.loggedUser.ID,
+            postID: postid,
+            emojiID: emoticon.ID
+        }
+        DB.insert("reactions", data).then(function(res) {
+            if (res.data.affectedRows == 0) {
+                alert('Váratlan hiba történt az adatbázis művelet során!');
+            } else {
+                emoticon.users.push({
+                    ID: $rootScope.loggedUser.ID,
+                    reactionID: res.data.insertId
+                });
+            }
+        })
+    }
+
+    $scope.levesz = function(emoticon, postid){
+        for (let i = 0; i < emoticon.users.length; i++) {
+            if (emoticon.users[i].ID == $rootScope.loggedUser.ID) {
+                DB.delete('reactions', 'ID', emoticon.users[i].reactionID).then(function(res) {
+                    if (res.data.affectedRows == 0) {
+                        alert('Váratlan hiba történt az adatbázis művelet során!');
+                    } else {
+                        emoticon.users.splice(i, 1);
+                    }
+                })
+                //emoticon.users.splice(i, 1);
+            }
         }
     }
 

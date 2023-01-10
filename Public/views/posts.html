@@ -40,8 +40,20 @@
       <h6 class="card-subtitle komdat">{{post.date}}</h6>
       <p class="card-text mt-3"> {{post.postmessage}}</p>
       <div>
-        <div>
-          <button id="reagalas{{post.ID}}{{$index+1}}" ng-click="reakcio(post.ID,emoticon.ID)" class="reakcios btn rounded-circle mb-3 btn-outline-{{emoticon.color}}" ng-repeat="emoticon in post.emoticons"><i class="{{emoticon.class}}"></i>{{emoticon.counter}}</button>
+        <div class="d-flex flex-row">
+          <div ng-repeat="emoticon in post.emoticons" class="d-flex flex-column text-center mb-3">
+            <div>
+              <button class="btn rounded-circle btn-outline-{{emoticon.color}}" ng-if="!reagalt(emoticon.users)" ng-click="reagalas(emoticon, $parent.post.ID)">
+                <i class="{{emoticon.class}}"></i>
+              </button>
+              <button class="btn rounded-circle btn-{{emoticon.color}}" ng-if="reagalt(emoticon.users)" ng-click="levesz(emoticon, post.ID)">
+                <i class="{{emoticon.class}}"></i>
+              </button>
+            </div>
+            <div ng-if="emoticon.users.length > 0">
+              {{emoticon.users.length}}
+            </div>
+          </div>
         </div>
         <div class="d-flex justify-content-between">
           <button class="btn btn-primary szurke" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ng-click="kommentSelectPost(post.ID, $index)"> Komment </button>
