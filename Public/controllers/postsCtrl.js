@@ -13,34 +13,38 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
         $scope.emoticons = res.data;
     });
 
-    DB.selectAll('postdetails').then(function(res) {
-        $scope.posts=res.data;
-        $scope.posts.forEach(post => {
-            post.date = moment(post.date).format('YYYY-MM-DD H:mm')
-            DB.select('commentdetails', 'postID', post.ID).then(function(res){
-                post.comments = res.data;
-                post.comments.forEach(comment => {
-                    comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
-                });
-            });
-            DB.selectAll('emotions').then(function(res) {
-                post.emoticons = res.data;
-                DB.select('reactions', 'postID', post.ID).then(function(res) {
-                    post.emoticons.forEach(ikon => {
-                        ikon.users = [];
-                        res.data.forEach(react => {
-                            if (react.emojiID == ikon.ID) {
-                                ikon.users.push({
-                                    ID: react.userID,
-                                    reactionID: react.ID
-                                });
-                            }
-                        });
+    getPosts();
+
+    function getPosts(){
+        DB.selectAll('postdetails').then(function(res) {
+            $scope.posts=res.data;
+            $scope.posts.forEach(post => {
+                post.date = moment(post.date).format('YYYY-MM-DD H:mm')
+                DB.select('commentdetails', 'postID', post.ID).then(function(res){
+                    post.comments = res.data;
+                    post.comments.forEach(comment => {
+                        comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
                     });
-                })
-            });
-        }); 
-    });
+                });
+                DB.selectAll('emotions').then(function(res) {
+                    post.emoticons = res.data;
+                    DB.select('reactions', 'postID', post.ID).then(function(res) {
+                        post.emoticons.forEach(ikon => {
+                            ikon.users = [];
+                            res.data.forEach(react => {
+                                if (react.emojiID == ikon.ID) {
+                                    ikon.users.push({
+                                        ID: react.userID,
+                                        reactionID: react.ID
+                                    });
+                                }
+                            });
+                        });
+                    })
+                });
+            }); 
+        });
+    }
 
     $scope.posting = function() {
         if ($scope.newPost.length > 0){
@@ -53,35 +57,7 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
                 if (res.data.affectedRows == 0) {
                     alert('Váratlan hiba történt az adatbázis művelet során!');
                 } else {
-                    DB.selectAll('postdetails').then(function(res) {
-                        $scope.posts=res.data;
-                        $scope.posts.forEach(post => {
-                            post.date = moment(post.date).format('YYYY-MM-DD H:mm')
-                            DB.select('commentdetails', 'postID', post.ID).then(function(res){
-                                post.comments = res.data;
-                                post.comments.forEach(comment => {
-                                    comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
-                                });
-                            });
-                            DB.selectAll('emotions').then(function(res) {
-                                post.emoticons = res.data;
-                                DB.select('reactions', 'postID', post.ID).then(function(res) {
-                                    post.emoticons.forEach(ikon => {
-                                        ikon.users = [];
-                                        console.log(ikon.users.length)
-                                        res.data.forEach(react => {
-                                            if (react.emojiID == ikon.ID) {
-                                                ikon.users.push({
-                                                    ID: react.userID,
-                                                    reactionID: react.ID
-                                                });
-                                            }
-                                        });
-                                    });
-                                })
-                            });
-                        }); 
-                    });
+                    getPosts();
                 }
             });
         }
@@ -90,23 +66,14 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
     $scope.postDelete = function(postID) {
 
         DB.delete('comments', 'postID', postID).then(function(res) {
-            DB.delete('posts', 'ID', postID).then(function(res) {
-                if (res.data.affectedRows == 0) {
-                    alert('Váratlan hiba történt az adatbázis művelet során!');
-                } else {
-                    DB.selectAll('postdetails').then(function(res) {
-                        $scope.posts=res.data;
-                        $scope.posts.forEach(post => {
-                            post.date = moment(post.date).format('YYYY-MM-DD H:mm')
-                            DB.select('commentdetails', 'postID', post.ID).then(function(res){
-                                post.comments = res.data;
-                                post.comments.forEach(comment => {
-                                    comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
-                                });
-                            });
-                        });
-                    });
-                }
+            DB.delete('reactions', 'postID', postID).then(function(res) {
+                DB.delete('posts', 'ID', postID).then(function(res) {
+                    if (res.data.affectedRows == 0) {
+                        alert('Váratlan hiba történt az adatbázis művelet során!');
+                    } else {
+                        getPosts();
+                    }
+                });
             });
         })
     }

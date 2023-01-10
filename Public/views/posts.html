@@ -43,10 +43,10 @@
         <div class="d-flex flex-row">
           <div ng-repeat="emoticon in post.emoticons" class="d-flex flex-column text-center mb-3">
             <div>
-              <button class="btn rounded-circle btn-outline-{{emoticon.color}}" ng-if="!reagalt(emoticon.users)" ng-click="reagalas(emoticon, $parent.post.ID)">
+              <button class="btn rounded-circle btn-outline-{{emoticon.color}}" ng-if="!reagalt(emoticon.users)" ng-click="reagalas(emoticon, $parent.post.ID)" title="{{emoticon.name}}">
                 <i class="{{emoticon.class}}"></i>
               </button>
-              <button class="btn rounded-circle btn-{{emoticon.color}}" ng-if="reagalt(emoticon.users)" ng-click="levesz(emoticon, post.ID)">
+              <button class="btn rounded-circle btn-{{emoticon.color}}" ng-if="reagalt(emoticon.users)" ng-click="levesz(emoticon, post.ID)" title="{{emoticon.name}}>
                 <i class="{{emoticon.class}}"></i>
               </button>
             </div>
