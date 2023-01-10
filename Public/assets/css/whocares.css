@@ -40,6 +40,7 @@ h2{
     border: 2px solid #23b5d3;
     box-shadow: 5px 5px 10px #75abbc;
     margin-bottom: 1%;
+    margin-top: 1%;
 }
 ul{
     border: 2px solid #23b5d3;
@@ -53,4 +54,14 @@ ul{
 .szurke{
     background-color: #34383b !important;
     border: 1px solid black !important;
+}
+.np{
+    border: 2px solid #23b5d3;
+    box-shadow: 5px 5px 10px #75abbc;
+ 
+}
+#newpost{
+    margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
