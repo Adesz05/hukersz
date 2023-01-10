@@ -34,11 +34,12 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
             let csakazoutlineclasskiszedes=joclassnev.split('-')[0]+"-"+joclassnev.split('-')[2]
             reagalas.classList.remove(joclassnev)
             reagalas.classList.add(csakazoutlineclasskiszedes)
+            
         }else{
-            console.log(joclassnev+"  az elseben")
             reagalas.classList.remove(joclassnev)
-            let outlinehozzaadas=joclassnev.split('-')[0]+"-outline-"+joclassnev.split('-')[2]
+            let outlinehozzaadas=joclassnev.split('-')[0]+"-outline-"+joclassnev.split('-')[1]
             reagalas.classList.add(outlinehozzaadas)
+
         }
     }
 
@@ -47,7 +48,7 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
             ID: postID,
             listID: hely
         };
-        $scope.newComment.text = "";
+        
     }
 
     $scope.komment = function() {
@@ -67,71 +68,11 @@ app.controller('postsCtrl', function($scope, $rootScope, DB) {
                             alert('Váratlan hiba történt az adatbázis művelet során!');
                         } else {
                             $scope.posts[$scope.kommentPost.listID].comments = res.data;
-                            posts[$scope.kommentPost.listID].comments.forEach(comment => {
-                                comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
-                            });
                         }
                     })
                 }
             });
         }
-    }
-
-    $scope.posting = function() {
-        if ($scope.newPost.length > 0){
-            let data = {
-                userID: $rootScope.loggedUser.ID,
-                date: moment(new Date()).format('YYYY-MM-DD H:mm'),
-                postmessage: $scope.newPost
-            };
-            DB.insert("posts", data).then(function(res) {
-                if (res.data.affectedRows == 0) {
-                    alert('Váratlan hiba történt az adatbázis művelet során!');
-                } else {
-                    DB.selectAll('postdetails').then(function(res) {
-                        $scope.posts=res.data;
-                        $scope.posts.forEach(post => {
-                            post.date = moment(post.date).format('YYYY-MM-DD H:mm')
-                            DB.select('commentdetails', 'postID', post.ID).then(function(res){
-                                post.comments = res.data;
-                                post.comments.forEach(comment => {
-                                    comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
-                                });
-                            });
-                        });
-                        $scope.newPost = "";
-                    });
-                }
-            });
-        }
-    }
-
-    $scope.postDelete = function(postID) {
-
-        DB.delete('comments', 'postID', postID).then(function(res) {
-            if (res.data.affectedRows == 0) {
-                alert('Váratlan hiba történt az adatbázis művelet során!');
-            } else {
-                DB.delete('posts', 'ID', postID).then(function(res) {
-                    if (res.data.affectedRows == 0) {
-                        alert('Váratlan hiba történt az adatbázis művelet során!');
-                    } else {
-                        DB.selectAll('postdetails').then(function(res) {
-                            $scope.posts=res.data;
-                            $scope.posts.forEach(post => {
-                                post.date = moment(post.date).format('YYYY-MM-DD H:mm')
-                                DB.select('commentdetails', 'postID', post.ID).then(function(res){
-                                    post.comments = res.data;
-                                    post.comments.forEach(comment => {
-                                        comment.date = moment(comment.date).format('YYYY-MM-DD H:mm')
-                                    });
-                                });
-                            });
-                        });
-                    }
-                });
-            }
-        })
     }
   
     
