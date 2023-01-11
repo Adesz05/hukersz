@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Jan 09. 10:35
+-- Létrehozás ideje: 2023. Jan 11. 13:02
 -- Kiszolgáló verziója: 10.4.6-MariaDB
 -- PHP verzió: 7.3.8
 
@@ -68,7 +68,11 @@ INSERT INTO `comments` (`ID`, `userID`, `postID`, `date`, `comment`) VALUES
 (10, 3, 1, '2023-01-09 10:17:00', '7. valami'),
 (11, 3, 1, '2023-01-09 10:23:00', '8.?'),
 (12, 3, 1, '2023-01-09 10:23:00', '9.?'),
-(13, 3, 1, '2023-01-09 10:24:00', '10.?');
+(13, 3, 1, '2023-01-09 10:24:00', '10.?'),
+(14, 3, 1, '2023-01-09 10:55:00', '11?'),
+(15, 3, 1, '2023-01-09 10:56:00', '11?'),
+(17, 3, 1, '2023-01-09 11:09:00', 'uj'),
+(21, 3, 4, '2023-01-09 11:54:00', 'bgtes');
 
 -- --------------------------------------------------------
 
@@ -121,7 +125,11 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`ID`, `fromID`, `toID`, `date`, `message`) VALUES
-(1, 1, 3, '2022-12-13 10:05:12', 'Tudjad kivel beszelsz\r\nSenkiben sem bizhatsz');
+(18, 3, 1, '2023-01-11 12:03:01', 'admintól első amógának 1.'),
+(19, 3, 2, '2023-01-11 12:03:23', 'admintól a második muskétásnak 1.'),
+(20, 2, 3, '2023-01-11 12:05:23', 'második muskétástól az adminnak 1.'),
+(21, 2, 1, '2023-01-11 12:25:16', 'második muskétástól az első amógának 1.'),
+(22, 1, 2, '2023-01-11 12:26:59', 'első amógától a második muskétásnak 1.');
 
 -- --------------------------------------------------------
 
@@ -140,9 +148,9 @@ CREATE TABLE `pictures` (
 --
 
 INSERT INTO `pictures` (`ID`, `userID`, `filename`) VALUES
-(1, 3, ''),
-(2, 1, ''),
-(3, 2, '');
+(4, 3, 'adminka.jpg\r\n'),
+(5, 1, 'amogus.jpg'),
+(6, 2, 'musketer.jpg');
 
 -- --------------------------------------------------------
 
@@ -199,7 +207,9 @@ CREATE TABLE `reactions` (
 --
 
 INSERT INTO `reactions` (`ID`, `userID`, `postID`, `emojiID`) VALUES
-(1, 1, 1, 6);
+(1, 1, 1, 6),
+(4, 3, 2, 7),
+(5, 3, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -225,9 +235,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `name`, `email`, `password`, `phone`, `address`, `filename`, `reg`, `last`, `status`) VALUES
-(1, 'Első Amóga', 'amoga@amog.us', 'amoga', 'amogamogtelefon', 'amoga utca amoga', NULL, '2022-12-12 11:34:16', NULL, 1),
-(2, 'Masodik muskétás', 'musk@tesla.com', 'musketa', 'amogatelefon', 'amoga utca0', NULL, '2022-12-13 09:57:02', NULL, 1),
-(3, 'admin', 'admin@admin.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'adminfone', 'adminokhelye', NULL, '2022-12-13 09:57:45', '2023-01-09 09:19:14', 1);
+(1, 'Első Amóga', 'amoga@amog.us', 'cd9042e8a990b08cd4acaeae3089c156ca2615fc', 'amogamogtelefon', 'amoga utca amoga', 'amogus.jpg', '2022-12-12 11:34:16', NULL, 1),
+(2, 'Masodik muskétás', 'musk@tesla.com', '717c14b3118b0299c89c2cbedc02646e018ce96c', 'amogatelefon', 'amoga utca0', 'musketer.jpg', '2022-12-13 09:57:02', '2023-01-11 12:04:49', 1),
+(3, 'admin', 'admin@admin.com', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'adminfone', 'adminokhelye', 'adminka.jpg', '2022-12-13 09:57:45', '2023-01-11 12:05:45', 1);
 
 -- --------------------------------------------------------
 
@@ -310,7 +320,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT a táblához `emotions`
@@ -322,31 +332,31 @@ ALTER TABLE `emotions`
 -- AUTO_INCREMENT a táblához `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT a táblához `pictures`
 --
 ALTER TABLE `pictures`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT a táblához `reactions`
 --
 ALTER TABLE `reactions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Megkötések a kiírt táblákhoz
