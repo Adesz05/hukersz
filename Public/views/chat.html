@@ -1,5 +1,12 @@
-<h2 class="text-start">
-    {{partner.name}}
+<h2 class="text-start d-flex justify-content-between">
+    <div>
+        {{partner.name}}
+    </div>
+    <div>
+        <a href="" class="btn btn-primary" ng-click="reFresh()">
+            <i class="bi bi-arrow-clockwise"></i>
+        </a>
+    </div>
 </h2>
 <div class="chatMap">
     <div class="overflow-auto" id="messageboxok" style="width: 1fr;">
@@ -7,7 +14,7 @@
 
             <div class="card m-2" style="min-width: 18rem;">
                 <div class="card-body">
-                  <h5 class="card-title">{{partner.name}}</h5>
+                  <h5 class="card-title">{{message.name}}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">{{message.date}}</h6>
                   <p class="card-text">{{message.message}}</p>
                 </div>

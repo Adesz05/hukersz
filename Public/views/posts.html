@@ -92,7 +92,7 @@
 <div class="col-4 embik">
 <!-- Felhasznalok helye--> 
 <ul class="list-group list-group-flush" >
-    <li class="list-group-item d-flex justify-content-between" ng-repeat="user in users">
+    <li class="list-group-item d-flex justify-content-between" ng-repeat="user in users" ng-if="user.ID != loggedUser.ID">
         <img class="profkep" src="/Public/assets/img/{{user.filename}}">
         {{user.name}}
         <i class="bi bi-chat-dots" ng-click="choosePartner(user)"></i>
