@@ -6,15 +6,23 @@ app.controller('chatCtrl', function($scope, $rootScope, DB) {
 
     function getMessages() {
         DB.select('messages', 'fromID', $rootScope.loggedUser.ID).then(function(res) {
-            $scope.messages = res.data;
-    
+            let messages = res.data;
             DB.select('messages', 'toID', $rootScope.loggedUser.ID).then(function(resu) {
-                $scope.messages = $scope.messages.concat(resu.data);
+                $scope.messages = messages.concat(resu.data);
+
+                console.log(`PartnerID: ${$rootScope.partner.ID}`)
+                console.log(`PartnerID: ${$rootScope.loggedUser.ID}`)
+                console.log($scope.messages);
                 for (let i = 0; i < $scope.messages.length; i++) {
-                    if (!($scope.messages[i].toID == $rootScope.partner.ID || $scope.messages[i].fromID == $rootScope.partner.ID)) {
+                    if (!(($scope.messages[i].toID == $rootScope.partner.ID && $scope.messages[i].fromID == $rootScope.loggedUser.ID) || ($scope.messages[i].fromID == $rootScope.partner.ID && $scope.messages[i].toID == $rootScope.loggedUser.ID))) {
                         $scope.messages.splice(i, 1);
+                        i--;
                     }
                 }
+                console.log($scope.messages);
+                console.log(`PartnerID: ${$rootScope.partner.ID}`)
+                console.log(`PartnerID: ${$rootScope.loggedUser.ID}`)
+
                 $scope.messages.sort((a, b) => {return a.ID - b.ID});
                 $scope.messages.forEach(message => {
                     message.date = moment(message.date).format('YYYY-MM-DD H:mm:ss');
